@@ -17,7 +17,7 @@ export class ConfigService implements IConfigService {
     return this.envConfig[key]
   }
 
-  getOrDef(key: string, def: string): string {
+  getOrDef(key: string, def: any): any {
     if (this.get(key)) {
       return this.get(key)
     } else {
@@ -25,7 +25,7 @@ export class ConfigService implements IConfigService {
     }
   }
 
-  getOrError(key: string): string {
+  getOrError(key: string): any {
     const res = this.get(key)
     if (!res) throw new Error('Not found reqired env key = ' + key)
     return res
