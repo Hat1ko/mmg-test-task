@@ -1,5 +1,6 @@
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm/index'
 import { IQuestion } from 'src/core'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm/index'
+import { Test } from 'src/dbl'
 
 @Entity('question')
 export class Question implements IQuestion {
@@ -11,4 +12,11 @@ export class Question implements IQuestion {
 
   @Column()
   answer: string
+
+  @Column()
+  testId: string
+
+  @JoinColumn({ name: 'testId' })
+  @ManyToOne(() => Test)
+  test?: Test
 }

@@ -1,5 +1,6 @@
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm/index'
 import { IResult } from 'src/core'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm/index'
+import { Test } from 'src/dbl'
 
 @Entity('result')
 export class Result implements IResult {
@@ -8,4 +9,11 @@ export class Result implements IResult {
 
   @Column()
   amountOfRightAnswers: number
+
+  @Column()
+  testId: string
+
+  @JoinColumn({ name: 'testId' })
+  @ManyToOne(() => Test)
+  test?: Test
 }
