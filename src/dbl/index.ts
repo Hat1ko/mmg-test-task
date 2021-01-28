@@ -1,3 +1,3 @@
 export * from './questions'
 
-export * from './typeorm.provider'
+export * from './dbl.module'
