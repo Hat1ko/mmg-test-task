@@ -1,0 +1,1 @@
+export const TESTS_REPOSITORY = 'TESTS_REPOSITORY'

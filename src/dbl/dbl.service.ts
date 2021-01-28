@@ -3,8 +3,10 @@ import {
   DBL_SERVICE,
   IQuestionsRepository,
   IResultsRepository,
+  ITestsRepository,
   QUESTIONS_REPOSITORY,
   RESULTS_REPOSITORY,
+  TESTS_REPOSITORY,
 } from 'src/core'
 
 @Injectable()
@@ -13,6 +15,8 @@ export class DBLService {
   public readonly questionsRepository: IQuestionsRepository
   @Inject(RESULTS_REPOSITORY)
   public readonly resultsRepository: IResultsRepository
+  @Inject(TESTS_REPOSITORY)
+  public readonly testsRepository: ITestsRepository
 }
 
 export const DBLServiceProvider: ClassProvider = {
