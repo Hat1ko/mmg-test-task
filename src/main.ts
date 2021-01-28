@@ -16,7 +16,7 @@ async function bootstrap() {
     .setTitle('MixIt')
     .setDescription('The Test API description')
     .setVersion('1.0')
-    .addTag('mmg-test')
+    .addTag('mmg-tests')
     .build()
 
   const document = SwaggerModule.createDocument(app, swaggerOptions)

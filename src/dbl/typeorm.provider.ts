@@ -1,7 +1,6 @@
 import { DynamicModule } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { IConfigService } from 'src/core/interfaces'
-import { CONFIG_SERVICE } from 'src/core/providers'
+import { CONFIG_SERVICE, IConfigService } from 'src/core'
 import { Entities } from './entities'
 
 export const TypeOrmModuleProvider: DynamicModule = TypeOrmModule.forRootAsync({
