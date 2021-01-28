@@ -1,2 +1,4 @@
-// abstraction interface for additional method that might appear
-export interface IQuestionsRepository {}
+import { Question } from 'src/dbl'
+import { Repository } from 'typeorm/index'
+
+export interface IQuestionsRepository extends Repository<Question> {}
