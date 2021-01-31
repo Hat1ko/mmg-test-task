@@ -11,11 +11,11 @@ export class AdminTestsService implements IAdminTestsService {
 
   async createOne(dto: TestCreateDto): Promise<TestDto> {
     const testToCreate = this.dbl.testsRepository.create({ name: dto.name })
-    const questionsToCreate = dto.questions.map(question =>
-      this.dbl.questionsRepository.create(question),
-    )
-
     const testSaved = await this.dbl.testsRepository.save(testToCreate)
+
+    const questionsToCreate = dto.questions.map(question =>
+      this.dbl.questionsRepository.create({ ...question, testId: testSaved.id }),
+    )
     testSaved.questions = await this.dbl.questionsRepository.save(questionsToCreate)
 
     return testSaved
