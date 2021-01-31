@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  mixit-api:
+  test-task-api:
     build:
       context: ./
       dockerfile: Dockerfile
@@ -10,18 +10,14 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - mixit-postgres
-      - mixit-redis
-      - mixit-minio
+      - test-task-postgres
     links:
-      - mixit-postgres
-      - mixit-redis
-      - mixit-minio
+      - test-task-postgres
     volumes:
       - ./:/home/node/app
     command: npm run start:dev
 
-  mixit-postgres:
+  test-task-postgres:
     image: postgres:11
     restart: always
 

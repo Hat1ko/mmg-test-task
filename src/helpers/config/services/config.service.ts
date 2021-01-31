@@ -10,7 +10,7 @@ export class ConfigService implements IConfigService {
 
   constructor(filePath: string) {
     this.envConfig = dotenv.parse(fs.readFileSync(filePath))
-    this.logger.log(process.env.NODE_ENV)
+    this.logger.log('Configs injected')
   }
 
   get(key: string): string {

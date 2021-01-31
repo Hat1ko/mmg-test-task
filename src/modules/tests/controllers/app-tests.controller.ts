@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common'
 import { APP_TESTS_SERVICE, IAppTestsService, ResultDto, TestDto } from 'src/core'
 import { TestPassDto } from 'src/modules/tests/dtos'
-import { ApiBody, ApiNotFoundResponse, ApiOkResponse, ApiParam } from '@nestjs/swagger'
+import { ApiBody, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger'
 
+@ApiTags('App | Tags')
 @Controller('app/tests')
 export class AppTestsController {
   @Inject(APP_TESTS_SERVICE)

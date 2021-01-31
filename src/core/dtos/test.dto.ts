@@ -1,5 +1,5 @@
 import { ITest } from '../interfaces'
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { QuestionDto, ResultDto } from 'src/core'
 
 export class TestDto implements ITest {
@@ -9,9 +9,9 @@ export class TestDto implements ITest {
   @ApiProperty()
   name: string
 
-  @ApiProperty()
+  @ApiPropertyOptional({ type: QuestionDto, isArray: true })
   questions?: QuestionDto[]
 
-  @ApiProperty()
+  @ApiPropertyOptional({ type: ResultDto, isArray: true })
   results?: ResultDto[]
 }

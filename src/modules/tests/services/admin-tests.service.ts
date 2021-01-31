@@ -34,7 +34,10 @@ export class AdminTestsService implements IAdminTestsService {
       throw new NotFoundException('Test not found')
     }
 
-    test.questions = await this.dbl.questionsRepository.find({ where: { testId: id } })
+    test.questions = await this.dbl.questionsRepository.find({
+      where: { testId: id },
+      select: ['id', 'name', 'answer'],
+    })
 
     return test
   }

@@ -8,7 +8,10 @@ export class AuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest()
-    const authValue = request.headers.Authorization
+    const authValue = request.headers?.authorization
+    if (!authValue) {
+      return false
+    }
 
     return this.authService.verifyUser(authValue)
   }

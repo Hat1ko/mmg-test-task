@@ -16,10 +16,7 @@ export class AnswerQuestionDto {
 export class TestPassDto {
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  id: string
-
-  @ApiProperty()
+  @ApiProperty({ type: AnswerQuestionDto, isArray: true })
   @ValidateNested()
   items: AnswerQuestionDto[]
 }

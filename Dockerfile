@@ -25,4 +25,8 @@ COPY . /home/node/app
 # ARG NODE_ENV
 # ENV NODE_ENV $NODE_ENV
 
+USER root
+
 RUN npm install
+
+USER node

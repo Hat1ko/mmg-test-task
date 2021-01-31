@@ -8,7 +8,7 @@ export const TypeOrmModuleProvider: DynamicModule = TypeOrmModule.forRootAsync({
   useFactory: async (cs: IConfigService) => ({
     type: cs.getOrDef('DATABASE_TYPE', 'postgres'),
     host: cs.getOrDef('DATABASE_HOST', 'localhost'),
-    port: cs.getOrDef('DATABASE_PORT', 3306),
+    port: cs.getOrDef('DATABASE_PORT', 5432),
     username: cs.getOrDef('DATABASE_USER', 'test'),
     password: cs.getOrDef('DATABASE_PASS', 'test'),
     database: cs.getOrDef('DATABASE_DB', 'test'),

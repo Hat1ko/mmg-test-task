@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common'
+import { Body, Controller, Get, Inject, Param, Post, UseGuards } from '@nestjs/common'
 import { ADMIN_TESTS_SERVICE } from 'src/core/providers'
 import { IAdminTestsService, TestDto } from 'src/core'
 import { TestCreateDto } from 'src/modules/tests/dtos'
@@ -11,14 +11,16 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger'
+import { AuthGuard } from 'src/modules/auth/guards'
 
 @ApiTags('Admin | Tests')
 @Controller('admin/tests')
+@UseGuards(AuthGuard)
 export class AdminTestsController {
   @Inject(ADMIN_TESTS_SERVICE)
   private readonly testsService: IAdminTestsService
 
-  @ApiBody({ required: true, description: 'Test name and questions ' })
+  @ApiBody({ required: true, description: 'Test name and questions', type: TestCreateDto })
   @ApiBadRequestResponse({ description: 'Incorrect data inserted into request body' })
   @ApiOkResponse({ description: 'Created a new test', type: TestDto })
   @Post()

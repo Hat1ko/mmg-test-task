@@ -19,7 +19,7 @@ export class TestCreateDto {
   @IsString()
   name: string
 
-  @ApiProperty()
+  @ApiProperty({ type: QuestionCreateDto, isArray: true })
   @IsNotEmpty()
   @ValidateNested()
   questions: QuestionCreateDto[]

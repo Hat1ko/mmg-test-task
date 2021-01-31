@@ -14,13 +14,13 @@ export class StatisticsService implements IStatisticsService {
   }
 
   async getFinishedTestsStats(): Promise<NumberOfResultsDto> {
-    const tests = await this.dbl.testsRepository.find({ relations: ['result'] })
+    const tests = await this.dbl.testsRepository.find({ relations: ['results'] })
     const numOfResults = tests.filter(test => test.results && test.results.length > 0).length
     return { count: numOfResults }
   }
 
   async getUnFinishedTestsStats(): Promise<NumberOfResultsDto> {
-    const tests = await this.dbl.testsRepository.find({ relations: ['result'] })
+    const tests = await this.dbl.testsRepository.find({ relations: ['results'] })
     const numOfResults = tests.filter(test => test.results && test.results.length > 0).length
     return { count: tests.length - numOfResults }
   }
