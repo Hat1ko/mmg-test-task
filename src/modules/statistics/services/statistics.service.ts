@@ -1,21 +1,27 @@
 import { DBL_SERVICE, IStatisticsService } from 'src/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { DBLService } from 'src/dbl'
+import { NumberOfResultsDto } from 'src/modules/statistics/dtos'
 
 @Injectable()
 export class StatisticsService implements IStatisticsService {
   @Inject(DBL_SERVICE)
   private readonly dbl: DBLService
 
-  async getAllResults(pagination: any): Promise<any> {
-    return Promise.resolve(undefined)
+  async getAllResultsCount(): Promise<NumberOfResultsDto> {
+    const [resultList, numOfResults] = await this.dbl.resultsRepository.findAndCount()
+    return { count: numOfResults }
   }
 
-  async getFinishedTestsResults(pagination: any): Promise<any> {
-    return Promise.resolve(undefined)
+  async getFinishedTestsStats(): Promise<NumberOfResultsDto> {
+    const tests = await this.dbl.testsRepository.find({ relations: ['result'] })
+    const numOfResults = tests.filter(test => test.questions && test.questions.length > 0).length
+    return { count: numOfResults }
   }
 
-  async getResultsByTestId(id: string): Promise<any> {
-    return Promise.resolve(undefined)
+  async getUnFinishedTestsStats(): Promise<NumberOfResultsDto> {
+    const tests = await this.dbl.testsRepository.find({ relations: ['result'] })
+    const numOfResults = tests.filter(test => test.questions && test.questions.length > 0).length
+    return { count: tests.length - numOfResults }
   }
 }

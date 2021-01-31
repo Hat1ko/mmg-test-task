@@ -1,9 +1,23 @@
-import { Controller, Inject } from '@nestjs/common'
-import { IStatisticsService } from 'src/core/interfaces/statistics/services'
+import { Controller, Get, Inject } from '@nestjs/common'
+import { IStatisticsService, STATISTICS_SERVICE } from 'src/core'
 
-@Controller()
+@Controller('app/statistics')
 export class StatisticsController {
-  // TODO: insert provide token
-  @Inject()
+  @Inject(STATISTICS_SERVICE)
   private readonly statisticsService: IStatisticsService
+
+  @Get('all-time')
+  async getAllResultsCount() {
+    return this.statisticsService.getAllResultsCount()
+  }
+
+  @Get('finished')
+  async getFinishedTestsStats() {
+    return this.statisticsService.getFinishedTestsStats()
+  }
+
+  @Get('unfinished')
+  async getUnFinishedTestsStats() {
+    return this.statisticsService.getUnFinishedTestsStats()
+  }
 }
