@@ -1,17 +1,41 @@
-import { DBL_SERVICE, IAppTestsService } from 'src/core'
-import { Inject, Injectable } from '@nestjs/common'
+import { DBL_SERVICE, IAdminTestsService, TestDto } from 'src/core'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { DBLService } from 'src/dbl'
+import { TestCreateDto } from '../dtos'
+import { IPagination, IPaginationList, paginateAndGetMany } from 'src/helpers/helpers'
 
 @Injectable()
-export class AdminTestsService implements IAppTestsService {
+export class AdminTestsService implements IAdminTestsService {
   @Inject(DBL_SERVICE)
   private readonly dbl: DBLService
 
-  async getTestById(id: string): Promise<any> {
-    return Promise.resolve(undefined)
+  async createOne(dto: TestCreateDto): Promise<TestDto> {
+    const testToCreate = this.dbl.testsRepository.create({ name: dto.name })
+    const questionsToCreate = dto.questions.map(question =>
+      this.dbl.questionsRepository.create(question),
+    )
+
+    const testSaved = await this.dbl.testsRepository.save(testToCreate)
+    testSaved.questions = await this.dbl.questionsRepository.save(questionsToCreate)
+
+    return testSaved
   }
 
-  async passTest(id: string, dto: any): Promise<any> {
-    return Promise.resolve(undefined)
+  async getAll(pagination: IPagination): Promise<IPaginationList<TestDto>> {
+    const query = this.dbl.testsRepository.createQueryBuilder('test')
+
+    return await paginateAndGetMany(query, pagination)
+  }
+
+  async getTestByIdWithAnswers(id: string): Promise<TestDto> {
+    const test = await this.dbl.testsRepository.findOne(id)
+
+    if (!test) {
+      throw new NotFoundException('Test not found')
+    }
+
+    test.questions = await this.dbl.questionsRepository.find({ where: { testId: id } })
+
+    return test
   }
 }

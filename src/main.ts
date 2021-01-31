@@ -10,6 +10,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
+  app.setGlobalPrefix('api/v1')
+
   app.enableCors()
 
   const swaggerOptions = new DocumentBuilder()

@@ -1,6 +1,7 @@
+import { TestPassDto } from 'src/modules/tests/dtos'
+import { ResultDto } from 'src/core'
+
 export interface IAppTestsService {
-  // TODO: insert type
-  getTestById(id: string): Promise<any>
-  // TODO: insert type
-  passTest(id: string, dto: any): Promise<any>
+  getTest(id: string)
+  passTest(id: string, dto: TestPassDto): Promise<ResultDto>
 }

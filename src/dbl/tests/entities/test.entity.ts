@@ -11,7 +11,7 @@ export class Test implements ITest {
   name: string
 
   @OneToMany(() => Question, question => question.test)
-  tests?: Test[]
+  questions?: Question[]
 
   @OneToMany(() => Result, result => result.test)
   results?: Result[]
